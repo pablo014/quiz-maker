@@ -3,6 +3,7 @@ module.exports = mongoose => {
         mongoose.Schema({
             title: String,
             questions: Array,
+            author: String,
         }, {timeStamp: true}))
     return Quiz;
 }

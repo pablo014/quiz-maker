@@ -5,7 +5,8 @@ import { onMounted, ref } from 'vue';
 const quizzes = ref([])
 
 onMounted(async () => {
-    quizzes.value = await axios.get("http://localhost:8080/api/items")
+    const res = await axios.get("http://localhost:8080/api/quizzes");
+    quizzes.value = res.data;
 })
 
 const test = () => {
@@ -17,5 +18,7 @@ const test = () => {
 </script>
 
 <template>
-    <button @click="test()">Test</button>
+    <div v-for="quiz in quizzes">
+        {{ quiz }}
+    </div>
 </template>
