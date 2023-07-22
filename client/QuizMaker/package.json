@@ -15,6 +15,7 @@
     "format": "prettier --write src"
   },
   "dependencies": {
+    "@pablo014/vue3-component-library": "^0.0.2",
     "axios": "^1.4.0",
     "pinia": "^2.1.3",
     "vue": "^3.3.4",

@@ -9,7 +9,8 @@ exports.create = (req, res) => {
     const quiz = new Quiz({
         title: req.body.title,
         questions: req.body.questions,
-        author: req.body.author
+        author: req.body.author,
+        summary: req.body.summary
     })
     quiz.save(quiz).then(data => {
         res.send(data);

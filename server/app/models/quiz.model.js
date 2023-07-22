@@ -4,6 +4,7 @@ module.exports = mongoose => {
             title: String,
             questions: Array,
             author: String,
+            summary: String,
         }, {timeStamp: true}))
     return Quiz;
 }
