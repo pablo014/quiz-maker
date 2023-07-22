@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
+
+const quizzes = ref([])
+
+onMounted(async () => {
+    quizzes.value = await axios.get("http://localhost:8080/api/items")
+})
+
+const test = () => {
+    axios.post("http://localhost:8080/api/quizzes", {
+        title: 'test',
+        questions: [],
+    })
+}
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <button @click="test()">Test</button>
 </template>
