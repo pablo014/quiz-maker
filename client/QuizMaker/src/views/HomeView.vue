@@ -5,18 +5,40 @@ import QuizItem from "@/components/QuizItem.vue";
 
 const quizzes = ref([])
 const isOpen = ref(false)
+const questionList = ref([
+    {
+        text: '',
+        choices: [],
+        answer: ''
+    }
+]);
 
 onMounted(async () => {
     const res = await axios.get("http://localhost:8080/api/quizzes");
     quizzes.value = res.data;
 })
 
+const addToList = () => {
+    questionList.value.push({
+        text: '',
+        choices: [],
+        answer: ''
+    });
+}
+
+const addChoices = (index) => {
+    questionList.value[index].choices.push({
+        isAnswer: false,
+        text: '',
+    })
+}
+
 const addQuiz = async (quiz) => {
     await axios.post("http://localhost:8080/api/quizzes", quiz)
+    numQuestion.value = 0;
 }
 
 const openDialog = () => {
-    console.log('test')
     isOpen.value = true;
 }
 </script>
@@ -24,10 +46,18 @@ const openDialog = () => {
 <template>
     <div>
         <QuizItem v-for="quiz in quizzes" :quiz="quiz" />
-        <Dialog class="dialog" v-if="isOpen" title="test" @close="() => isOpen = false">
-            <template>
-                <div>test</div>
-            </template>
+        <Dialog class="dialog" v-if="isOpen" title="Add Quiz" @close="() => isOpen = false">
+            <div v-for="(n, q) in questionList">
+                <InputText @inputValue="(i) => {n.text = i}" />
+                <div class="choice">
+                    <div v-for="(choice, c) in n.choices">
+                        <Checkbox :id="`${q}-${c}`" label="" :value="choice.isAnswer"/>
+                        <InputText @inputValue="(i) => {choice.text}" />
+                    </div>
+                    <div class="add" @click="addChoices(q)">Add Choice</div>
+                </div>
+            </div>
+            <div class="add" @click="addToList">Add Question</div>
         </Dialog>
         <div class="button" @click="openDialog">
             <p>+</p>
@@ -61,5 +91,12 @@ const openDialog = () => {
     background-color: #2c3e50;
     border-radius: 20px;
     padding: 2rem;
+    box-shadow: 10px 5px 5px #222222;
+}
+.add {
+    cursor: pointer;
+}
+.choice {
+    padding-left: 2rem;
 }
 </style>

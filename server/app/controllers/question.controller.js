@@ -9,6 +9,7 @@ exports.create = (req, res) => {
     const question = new Question({
         text: req.body.text,
         answers: req.body.answers,
+        choices: req.body.choices,
         quiz: req.body.quiz
     })
     question.save(question).then(data => {

@@ -3,6 +3,7 @@ module.exports = mongoose => {
         mongoose.Schema({
             text: String,
             answer: String,
+            choices: String,
             quiz: String,
         })
     );
