@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@pablo014/vue3-component-library': ^0.0.2
+  '@pablo014/vue3-component-library': ^0.0.3
   '@rushstack/eslint-patch': ^1.2.0
   '@tsconfig/node18': ^2.0.1
   '@types/jsdom': ^21.1.1
@@ -30,7 +30,7 @@ specifiers:
   vue-tsc: ^1.6.5
 
 dependencies:
-  '@pablo014/vue3-component-library': 0.0.2_vue@3.3.4
+  '@pablo014/vue3-component-library': 0.0.3_vue@3.3.4
   axios: 1.4.0
   pinia: 2.1.4_typescript@5.0.4+vue@3.3.4
   vue: 3.3.4
@@ -730,8 +730,8 @@ packages:
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
     dev: true
 
-  /@pablo014/vue3-component-library/0.0.2_vue@3.3.4:
-    resolution: {integrity: sha512-Q5EwngGDQzAPqdD5NajzqrU7Xl15HgPOyDc0aE/Mx2w6guRAUACWWKZMY/SJfjSSHOaawqZDDS+1DA8633IrWw==}
+  /@pablo014/vue3-component-library/0.0.3_vue@3.3.4:
+    resolution: {integrity: sha512-e5LrH6i1iY3YOiVci8TMCUPIJliyo/R/44Q7pUqyDN2qQkAcfkDRO0JOU/bRfKzJF42SjtFXDrHUmx0vbOLi+A==}
     peerDependencies:
       vue: ^3.2.21
     dependencies:
