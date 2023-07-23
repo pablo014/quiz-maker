@@ -4,7 +4,6 @@ module.exports = mongoose => {
             text: String,
             answer: String,
             choices: String,
-            quiz: String,
         })
     );
 }

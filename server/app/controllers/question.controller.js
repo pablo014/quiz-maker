@@ -10,7 +10,6 @@ exports.create = (req, res) => {
         text: req.body.text,
         answers: req.body.answers,
         choices: req.body.choices,
-        quiz: req.body.quiz
     })
     question.save(question).then(data => {
         res.send(data);

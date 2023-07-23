@@ -5,6 +5,7 @@ import QuizItem from "@/components/QuizItem.vue";
 
 const quizzes = ref([])
 const isOpen = ref(false)
+const title = ref('')
 const questionList = ref([
     {
         text: '',
@@ -26,6 +27,12 @@ const addToList = () => {
     });
 }
 
+const removeFromList = (idx) => {
+    questionList.value.splice(idx, 1);
+    console.log()
+    key.value++;
+}
+
 const addChoices = (index) => {
     questionList.value[index].choices.push({
         isAnswer: false,
@@ -33,9 +40,15 @@ const addChoices = (index) => {
     })
 }
 
+const removeChoice = (i, c) => {
+    questionList.value[i].choices.splice(c, 1);
+    key.value++;
+}
+
 const addQuiz = async (quiz) => {
     await axios.post("http://localhost:8080/api/quizzes", quiz)
-    numQuestion.value = 0;
+    questionList.value = [];
+    addToList();
 }
 
 const openDialog = () => {
@@ -46,13 +59,21 @@ const openDialog = () => {
 <template>
     <div>
         <QuizItem v-for="quiz in quizzes" :quiz="quiz" />
-        <Dialog class="dialog" v-if="isOpen" title="Add Quiz" @close="() => isOpen = false">
-            <div v-for="(n, q) in questionList">
-                <InputText @inputValue="(i) => {n.text = i}" />
-                <div class="choice">
-                    <div v-for="(choice, c) in n.choices">
+        <Dialog class="dialog" v-if="isOpen" title="Add Quiz" @close="() => isOpen = false" @confirm="addQuiz">
+            <div>Title</div>
+            <InputText @inputValue="(i) => {title = i}" />
+            <div class="questions" v-for="(n, q) in questionList">
+                <div>Question {{ q + 1 }}</div>
+                <div class="question-input">
+                    <input type="text" v-model="n.text" :id="`q-${q}`">
+                    <font-awesome-icon icon="fa-solid fa-trash" class="trash" @click="removeFromList(q)"/>
+                </div>
+                <div class="choice-container">
+                    <div v-for="(choice, c) in n.choices" class="choice">
                         <Checkbox :id="`${q}-${c}`" label="" :value="choice.isAnswer"/>
-                        <InputText @inputValue="(i) => {choice.text}" />
+                        <InputText @inputValue="(i) => {choice.text = i}" />
+                        <input type="text" v-model="choice.text" :id="`c-${c}`">
+                        <font-awesome-icon icon="fa-solid fa-trash" class="trash" @click="removeChoice(q, c)" />
                     </div>
                     <div class="add" @click="addChoices(q)">Add Choice</div>
                 </div>
@@ -96,7 +117,21 @@ const openDialog = () => {
 .add {
     cursor: pointer;
 }
-.choice {
+.choice-container {
     padding-left: 2rem;
+}
+.choice {
+    display: flex;
+}
+.questions {
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+}
+.question-input {
+    display: flex;
+}
+.trash {
+    cursor: pointer;
+    margin-left: 1rem;
 }
 </style>
