@@ -50,6 +50,9 @@ const addQuiz = async (quiz) => {
     questionList.value = [];
     addToList();
 }
+const deleteQuiz = async (id) => {
+    await axios.delete("http://localhost:8080/api/quizzes", id)
+}
 
 const openDialog = () => {
     isOpen.value = true;

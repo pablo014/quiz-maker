@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 
 export interface QuizItem {
     quiz: {_id: String, title: String, author: string, questions: Array<String>, summary: String}
@@ -9,7 +9,7 @@ const props = defineProps<QuizItem>();
 </script>
 
 <template>
-    <RouterLink to="">
+    <RouterLink :to="`${quiz?._id}`">
         <div class="container">
             <div class="header">
                 <h2>{{ quiz?.title }}</h2>
