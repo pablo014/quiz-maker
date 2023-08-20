@@ -3,10 +3,27 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import QuizItem from "@/components/QuizItem.vue";
 
-const quizzes = ref([])
-const isOpen = ref(false)
-const title = ref('')
-const questionList = ref([
+export interface Choice {
+  isAnswer: boolean,
+  text: string,
+}
+export interface Question {
+  text: string,
+  choices: Array<Choice>,
+  answer: string,
+}
+export interface Quiz {
+  _id: string,
+  title: string,
+  questions: Array<Question>,
+  author: string,
+  summary: string,
+}
+
+const quizzes = ref<Array<Quiz>>([])
+const isOpen = ref<boolean>(false)
+const title = ref<string>('')
+const questionList = ref<Array<Question>>([
     {
         text: '',
         choices: [],
@@ -27,30 +44,27 @@ const addToList = () => {
     });
 }
 
-const removeFromList = (idx) => {
+const removeFromList = (idx: number) => {
     questionList.value.splice(idx, 1);
-    console.log()
-    key.value++;
 }
 
-const addChoices = (index) => {
+const addChoices = (index: number) => {
     questionList.value[index].choices.push({
         isAnswer: false,
         text: '',
     })
 }
 
-const removeChoice = (i, c) => {
+const removeChoice = (i: number, c: number) => {
     questionList.value[i].choices.splice(c, 1);
-    key.value++;
 }
 
-const addQuiz = async (quiz) => {
+const addQuiz = async (quiz: Quiz) => {
     await axios.post("http://localhost:8080/api/quizzes", quiz)
     questionList.value = [];
     addToList();
 }
-const deleteQuiz = async (id) => {
+const deleteQuiz = async (id: number) => {
     await axios.delete("http://localhost:8080/api/quizzes", id)
 }
 

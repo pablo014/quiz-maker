@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue'
+import type { Quiz } from '../views/HomeView.vue'
 
 export interface QuizItem {
-    quiz: {_id: String, title: String, author: string, questions: Array<String>, summary: String}
+    quiz: Quiz
 }
 
 const props = defineProps<QuizItem>();
@@ -13,6 +14,7 @@ const props = defineProps<QuizItem>();
         <div class="container">
             <div class="header">
                 <h2>{{ quiz?.title }}</h2>
+              <p>Num Questions: {{ quiz?.questions.length}}</p>
                 <p>{{ quiz?.author }}</p>
             </div>
             <div class="summary">
